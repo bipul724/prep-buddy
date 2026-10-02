@@ -19,6 +19,16 @@
   --weak-soft: #f8e4e1;
   --focus: #3b6cf6;
   --shadow: 0 1px 2px rgb(40 32 12 / 0.05), 0 8px 24px -12px rgb(40 32 12 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(40 32 12 / 0.06), 0 18px 40px -16px rgb(40 32 12 / 0.28);
+  /* Meter tracks: a lighter step of each status hue. */
+  --good-soft: #dcede1;
+  --okay-soft: #f6e6c6;
+  /* Deep-green band for feature sections, readable in both themes. */
+  --band: #1f4037;
+  --band-fg: #f6f1e6;
+  --grid-line: rgb(35 73 62 / 0.07);
+  --glow-a: rgb(35 73 62 / 0.14);
+  --glow-b: rgb(233 162 59 / 0.22);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -40,6 +50,14 @@
     --weak-soft: #3b2220;
     --focus: #8aa8ff;
     --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -16px rgb(0 0 0 / 0.6);
+    --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.35), 0 22px 48px -18px rgb(0 0 0 / 0.75);
+    --good-soft: #1d3325;
+    --okay-soft: #3a2e17;
+    --band: #16271f;
+    --band-fg: #e8f2ec;
+    --grid-line: rgb(143 207 180 / 0.06);
+    --glow-a: rgb(143 207 180 / 0.13);
+    --glow-b: rgb(240 181 82 / 0.1);
   }
 }
 
@@ -59,7 +77,12 @@
   --color-okay: var(--okay);
   --color-weak: var(--weak);
   --color-weak-soft: var(--weak-soft);
+  --color-good-soft: var(--good-soft);
+  --color-okay-soft: var(--okay-soft);
+  --color-band: var(--band);
+  --color-band-fg: var(--band-fg);
   --shadow-card: var(--shadow);
+  --shadow-lift: var(--shadow-lift);
   /* System fonts only: no network fetch, so the app builds and runs offline.
      ui-serif is "New York" on macOS. */
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
@@ -94,6 +117,24 @@ body {
   .eyebrow {
     @apply text-xs font-semibold tracking-[0.14em] text-muted uppercase;
   }
+  /* Cards that respond to hover: a small rise and a deeper shadow. */
+  .lift {
+    @apply transition duration-200 hover:-translate-y-0.5 hover:shadow-lift;
+  }
+  /* Faint square grid that fades out from the top centre. */
+  .bg-grid {
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+  }
+  .glow-a {
+    background: radial-gradient(closest-side, var(--glow-a), transparent);
+  }
+  .glow-b {
+    background: radial-gradient(closest-side, var(--glow-b), transparent);
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -104,6 +145,14 @@ body {
     from {
       opacity: 0;
       transform: translateY(8px);
+    }
+  }
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    50% {
+      transform: translateY(-6px);
     }
   }
 }

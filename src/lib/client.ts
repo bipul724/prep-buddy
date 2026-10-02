@@ -61,6 +61,14 @@ export function setProfileId(id: string | null) {
 
 export const scoreTone = (score: number) => (score >= 8 ? "text-good" : score >= 5 ? "text-okay" : "text-weak");
 
+/** Status for a 0–10 score: a word plus colour classes, so state is never shown by colour alone. */
+export const scoreStatus = (score: number) =>
+  score >= 8
+    ? { label: "Strong", dot: "bg-good", fill: "bg-good", track: "bg-good-soft" }
+    : score >= 5
+      ? { label: "Okay", dot: "bg-okay", fill: "bg-okay", track: "bg-okay-soft" }
+      : { label: "Needs work", dot: "bg-weak", fill: "bg-weak", track: "bg-weak-soft" };
+
 // ---- API response types used by the pages ----
 export type Profile = { id: string; name: string; targetRole: string; focusTopics: string[]; language: string };
 export type QuestionView = { id: string; topic: string; difficulty: string; prompt: string };
