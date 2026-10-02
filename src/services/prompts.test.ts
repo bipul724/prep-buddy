@@ -10,6 +10,12 @@ describe("buildEvaluatorPrompt", () => {
     for (const k of q.keyPoints) expect(p).toContain(`- ${k}`);
     expect(p).toContain("simple English");
   });
+  it("penalises contradicted key points and ties the verdict to the score", () => {
+    const p = buildEvaluatorPrompt(q, "x", "en");
+    expect(p).toContain("- 3-4: covers few key points, or states one of them wrongly");
+    expect(p).toContain("- 0-2: off-topic, empty, or states two or more key points wrongly");
+    expect(p).toContain("verdict must match the score: strong for 8-10, okay for 5-7, weak for 0-4.");
+  });
   it("asks for Hindi when the profile language is hi", () => {
     expect(buildEvaluatorPrompt(q, "x", "hi")).toContain("simple Hindi");
   });
