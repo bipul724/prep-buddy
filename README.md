@@ -2,7 +2,7 @@
 
 **An offline, private mock-interview coach for campus placements, powered by Google Gemma running on your own laptop.**
 
-Built for Siddhant Singh for the [DEV Hacktoberfest Weekend Challenge: Build for a Friend](https://dev.to/challenges/hacktoberfest-weekend-2026-10-01).
+Built for Aman for the [DEV Hacktoberfest Weekend Challenge: Build for a Friend](https://dev.to/challenges/hacktoberfest-weekend-2026-10-01).
 
 > ₹0 to run · no API keys · works with Wi-Fi off · your answers never leave your laptop
 

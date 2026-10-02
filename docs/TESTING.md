@@ -111,13 +111,15 @@ For 5 questions, write 3 answers each, then record the scores Prep Buddy gives.
 
 ## 6. Performance log (fill in; put real numbers in your DEV post)
 
-Machine: Apple M2, 8 GB, `CHAT_MODEL=____`, `REPHRASE_QUESTIONS=____`
+Machine: Apple M2, 8 GB, `CHAT_MODEL=gemma3:4b`, `REPHRASE_QUESTIONS=true`
 
 | Step | 1st call (cold) | Warm average of 3 | Target |
-|---|---|---|---|
-| Next question | | | < 15 s |
-| Grade answer | | | < 30 s |
-| Session summary | | | < 30 s |
-| Seed (14 questions) | | — | — |
+|---|---:|---:|---|
+| Next question | 41.15 s | 20.37 s | < 15 s ❌ |
+| Grade answer | 25.50 s | 14.81 s | < 30 s ✅ |
+| Session summary | 23.81 s | 15.08 s | < 30 s ✅ |
+| Seed (42 new questions) | 19.03 s | 14.67 s | — |
+
+Measured 3 Oct 2026. "Next question" misses its target with rephrasing on; grading and the summary are well inside theirs.
 
 Measure in the browser DevTools → Network → the request's "Time" column.
