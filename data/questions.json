@@ -1,0 +1,86 @@
+[
+  {
+    "topic": "DSA",
+    "difficulty": "EASY",
+    "prompt": "What is the difference between an array and a linked list, and when would you choose each?",
+    "keyPoints": ["contiguous memory vs nodes with pointers", "O(1) index access in arrays", "O(1) insert/delete at a known node in linked lists", "cache friendliness of arrays"]
+  },
+  {
+    "topic": "DSA",
+    "difficulty": "MEDIUM",
+    "prompt": "How does a hash map handle two keys that land in the same bucket?",
+    "keyPoints": ["collision", "chaining with lists or trees", "open addressing / probing", "load factor and resizing", "average O(1), worst case O(n)"]
+  },
+  {
+    "topic": "CS_FUNDAMENTALS",
+    "difficulty": "EASY",
+    "prompt": "Explain what time complexity means using a simple example.",
+    "keyPoints": ["growth of running time with input size", "Big-O notation", "example such as linear search O(n) vs binary search O(log n)"]
+  },
+  {
+    "topic": "CS_FUNDAMENTALS",
+    "difficulty": "MEDIUM",
+    "prompt": "What happens step by step when you type a website address into the browser and press Enter?",
+    "keyPoints": ["DNS lookup", "TCP connection and TLS handshake", "HTTP request and response", "browser renders HTML, CSS, JS"]
+  },
+  {
+    "topic": "DBMS",
+    "difficulty": "EASY",
+    "prompt": "What is normalization in databases and why is it useful?",
+    "keyPoints": ["reduces redundancy", "avoids insert, update and delete anomalies", "normal forms 1NF, 2NF, 3NF", "trade-off: more joins"]
+  },
+  {
+    "topic": "DBMS",
+    "difficulty": "MEDIUM",
+    "prompt": "Explain the ACID properties of a transaction with a bank transfer example.",
+    "keyPoints": ["atomicity: all or nothing", "consistency: rules stay valid", "isolation: concurrent transactions do not interfere", "durability: committed data survives crashes"]
+  },
+  {
+    "topic": "OS",
+    "difficulty": "EASY",
+    "prompt": "What is the difference between a process and a thread?",
+    "keyPoints": ["process has its own memory space", "threads share memory of their process", "threads are lighter to create and switch", "shared memory needs synchronization"]
+  },
+  {
+    "topic": "OS",
+    "difficulty": "MEDIUM",
+    "prompt": "What is a deadlock, and what are the ways an operating system can deal with it?",
+    "keyPoints": ["four necessary conditions", "prevention", "avoidance such as Banker's algorithm", "detection and recovery"]
+  },
+  {
+    "topic": "CN",
+    "difficulty": "EASY",
+    "prompt": "How is TCP different from UDP, and where would you use each?",
+    "keyPoints": ["TCP is connection-oriented and reliable", "UDP is connectionless and faster", "TCP for web and file transfer", "UDP for video calls, games, DNS"]
+  },
+  {
+    "topic": "CN",
+    "difficulty": "MEDIUM",
+    "prompt": "What problem does the TCP three-way handshake solve and how does it work?",
+    "keyPoints": ["SYN, SYN-ACK, ACK", "both sides agree on initial sequence numbers", "confirms both directions can communicate"]
+  },
+  {
+    "topic": "OOP",
+    "difficulty": "EASY",
+    "prompt": "Explain the four pillars of object-oriented programming with a small example.",
+    "keyPoints": ["encapsulation", "abstraction", "inheritance", "polymorphism", "a concrete example for at least one"]
+  },
+  {
+    "topic": "OOP",
+    "difficulty": "MEDIUM",
+    "prompt": "What is the difference between method overloading and method overriding?",
+    "keyPoints": ["overloading: same name, different parameters, compile time", "overriding: subclass redefines parent method, runtime", "example in Java"]
+  },
+  {
+    "topic": "HR",
+    "difficulty": "EASY",
+    "prompt": "Tell me about yourself.",
+    "keyPoints": ["short background", "relevant skills and one project", "why this role", "under 2 minutes, structured"]
+  },
+  {
+    "topic": "HR",
+    "difficulty": "MEDIUM",
+    "prompt": "Describe a time you faced a difficult problem in a team project and how you handled it.",
+    "keyPoints": ["STAR format: situation, task, action, result", "your own specific actions", "measurable result", "what you learned"]
+  }
+]
