@@ -32,7 +32,7 @@ Every model call goes to [Ollama](https://ollama.com) on `localhost`. Gemma 3 4B
 
 ## Friend feedback
 
-> "I liked that it gave me immediate feedback and showed me which topics I was weak in."
+> "What I liked about Prep Buddy was that after answering the questions, I was provided with instant feedback and it helped me to identify my weak areas. It helped me to know about my strengths and weaknesses prior to the interview."
 
 ## Quick start (macOS)
 
