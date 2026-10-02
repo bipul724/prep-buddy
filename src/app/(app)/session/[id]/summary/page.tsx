@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ScoreRing } from "@/components/ScoreRing";
-import { api, cleanText, ClientError, scoreTone, TOPIC_LABELS, type AttemptView, type SessionView } from "@/lib/client";
+import { api, cleanText, ClientError, realGaps, scoreTone, TOPIC_LABELS, type AttemptView, type SessionView } from "@/lib/client";
 
 function toMarkdown(session: SessionView, attempts: AttemptView[]): string {
   const s = session.summary!;
@@ -22,7 +22,7 @@ function toMarkdown(session: SessionView, attempts: AttemptView[]): string {
     ...attempts.map(
       (a) =>
         `- [${TOPIC_LABELS[a.question.topic]}] ${a.question.prompt} → **${a.score ?? "-"}/10**` +
-        (a.feedback?.gaps.length ? `\n  - Missing: ${a.feedback.gaps.join("; ")}` : ""),
+        (a.feedback && realGaps(a.feedback.gaps).length ? `\n  - Missing: ${realGaps(a.feedback.gaps).map(cleanText).join("; ")}` : ""),
     ),
     "",
     `_${s.encouragement}_`,
@@ -146,9 +146,14 @@ export default function SummaryPage() {
                 <div className="min-w-0 text-sm">
                   <p className="text-xs text-muted">{TOPIC_LABELS[a.question.topic]}</p>
                   <p className="mt-0.5 leading-relaxed">{a.question.prompt}</p>
-                  {a.feedback && a.feedback.gaps.length > 0 && (
-                    <p className="mt-1 text-xs text-weak">Missing: {a.feedback.gaps.join(" · ")}</p>
-                  )}
+                  {a.feedback &&
+                    (realGaps(a.feedback.gaps).length > 0 ? (
+                      <p className="mt-1 text-xs text-weak">Missing: {realGaps(a.feedback.gaps).map(cleanText).join(" · ")}</p>
+                    ) : (
+                      <p className="mt-1 flex items-center gap-1 text-xs text-good">
+                        <span aria-hidden>✓</span> Nothing missing
+                      </p>
+                    ))}
                 </div>
                 <span className={`font-display text-2xl font-semibold tabular-nums ${scoreTone(a.score ?? 0)}`}>
                   {a.score ?? "–"}

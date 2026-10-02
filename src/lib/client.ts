@@ -106,10 +106,15 @@ export type AttemptView = {
   question: QuestionView;
 };
 
-/** Model text cleanup for display: drop list numbering the UI already shows and Markdown emphasis marks. */
+/** Model text cleanup for display: drop list numbering the UI already shows and Markdown emphasis marks.
+ *  Emphasis goes first, so a number the model put inside bold ("**1. Practise:**") is still stripped. */
 export const cleanText = (s: string) =>
   s
-    .replace(/^\s*(?:\d+[.)]|[-*•])\s+/, "")
     .replace(/\*\*(.+?)\*\*/g, "$1")
     .replace(/(^|[^\w*])\*(?!\s)(.+?)(?<!\s)\*(?!\w)/g, "$1$2")
+    .replace(/^\s*(?:\d+[.)]|[-*•])\s+/, "")
     .trim();
+
+/** Gaps without placeholder entries such as "None." that the model sometimes returns instead of an empty list. */
+export const realGaps = (gaps: string[]) =>
+  gaps.filter((g) => !/^\W*(?:none|n\/?a|nothing( missing)?|no gaps?)\W*$/i.test(g));
