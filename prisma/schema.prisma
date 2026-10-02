@@ -1,0 +1,113 @@
+// Prep Buddy - database schema
+// Verified with Prisma CLI 7.10.0: `prisma validate` passes and `prisma generate` succeeds.
+// Vector columns use pgvector. Prisma has no native vector type, so the column is
+// `Unsupported(...)` and all vector reads/writes go through $queryRaw / $executeRaw
+// (see docs/ARCHITECTURE.md -> "Vector search").
+
+generator client {
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  // Required in Prisma 7.10 for the `extensions` field below (without it: error P1012).
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  // The connection URL lives in prisma.config.ts (Prisma 7 no longer reads it from here).
+  extensions = [vector]
+}
+
+enum Topic {
+  DSA
+  CS_FUNDAMENTALS
+  DBMS
+  OS
+  CN
+  OOP
+  HR
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum SessionStatus {
+  ACTIVE
+  COMPLETED
+  ABANDONED
+}
+
+// The friend who practises. Single-user local app, so there is no auth.
+model Profile {
+  id          String      @id @default(cuid())
+  name        String
+  targetRole  String
+  language    String      @default("en")
+  focusTopics Topic[]
+  createdAt   DateTime    @default(now())
+  sessions    Session[]
+  topicStats  TopicStat[]
+}
+
+// Question bank. Seeded from data/questions.json (your own wording).
+// embedding = embeddinggemma output (768 dimensions).
+model Question {
+  id         String                      @id @default(cuid())
+  topic      Topic
+  difficulty Difficulty
+  prompt     String
+  keyPoints  String[]
+  source     String                      @default("seed")
+  embedding  Unsupported("vector(768)")?
+  createdAt  DateTime                    @default(now())
+  attempts   Attempt[]
+
+  @@index([topic, difficulty])
+}
+
+// One practice sitting. `summary` holds the SessionSummary JSON from the coach agent.
+// askedQuestionIds = every question served by /questions/next, in order (answered or not),
+// so a question is never repeated in a session and the last one can be resumed after a reload.
+model Session {
+  id               String        @id @default(cuid())
+  profileId        String
+  profile          Profile       @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  topic            Topic?
+  status           SessionStatus @default(ACTIVE)
+  askedQuestionIds String[]      @default([])
+  summary          Json?
+  startedAt        DateTime      @default(now())
+  endedAt          DateTime?
+  attempts         Attempt[]
+}
+
+// One answer to one question. `feedback` holds the Feedback JSON from the evaluator agent.
+// idempotencyKey makes "submit answer" safe to retry (same key -> same attempt, no double grading).
+model Attempt {
+  id             String   @id @default(cuid())
+  sessionId      String
+  session        Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  questionId     String
+  question       Question @relation(fields: [questionId], references: [id])
+  answer         String
+  score          Int?
+  feedback       Json?
+  idempotencyKey String?  @unique
+  createdAt      DateTime @default(now())
+
+  @@index([sessionId])
+}
+
+// Running per-topic stats, updated in the same transaction as each graded Attempt.
+model TopicStat {
+  profileId String
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  topic     Topic
+  attempts  Int      @default(0)
+  avgScore  Float    @default(0)
+  updatedAt DateTime @updatedAt
+
+  @@id([profileId, topic])
+}

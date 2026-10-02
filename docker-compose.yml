@@ -1,0 +1,24 @@
+# Local database for Prep Buddy: PostgreSQL 17 + pgvector 0.8.7.
+# Ollama is NOT in Docker: on macOS, Docker cannot use the Apple GPU, so run Ollama natively.
+# Host port 5433 avoids clashing with the PostgreSQL 18 already listening on 5432.
+services:
+  db:
+    image: pgvector/pgvector:0.8.7-pg17
+    container_name: prepbuddy-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: prep
+      POSTGRES_PASSWORD: prep
+      POSTGRES_DB: prepbuddy
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - prepbuddy-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U prep -d prepbuddy"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  prepbuddy-pgdata:
