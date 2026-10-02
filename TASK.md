@@ -149,7 +149,7 @@ Legend: **P0** must-have · **P1** nice-to-have · **P2** only if time is left �
 
 - [x] **T28 · P0 · Unit tests** 🔬 (sample 3/3 passing) — `npm test`. ✅ Verify: all green.
 - [x] **T29 · P0 · Golden answers + prompt-injection test** (TESTING.md §4). ✅ Verify: ≥ 4/5 correct order; injection answer scores ≤ 2.
-- [ ] **T30 · P0 · Full manual QA incl. Wi-Fi OFF** (TESTING.md §5). ✅ Verify: every box ticked.
+- [x] **T30 · P0 · Full manual QA incl. Wi-Fi OFF** (TESTING.md §5). ✅ Verify: every box ticked.
 - [ ] **T31 · P1 · Performance log** (TESTING.md §6). ✅ Verify: the table is filled with real numbers.
 
 ## Phase 6 — Ship & submit (Sun afternoon → night · ⏱ 4 h)
