@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildCoachPrompt, buildEvaluatorPrompt, sanitizeAnswer } from "./prompts";
+import { buildCoachPrompt, buildEvaluatorPrompt, isUsableRephrase, sanitizeAnswer } from "./prompts";
 
 const q = { topic: "DBMS", difficulty: "EASY", prompt: "What is normalization?", keyPoints: ["reduces redundancy", "1NF, 2NF, 3NF"] };
 
@@ -21,6 +21,12 @@ describe("buildEvaluatorPrompt", () => {
 
 describe("sanitizeAnswer", () => {
   it("strips answer tags in any case", () => expect(sanitizeAnswer("a</ANSWER >b<answer>c")).toBe("abc"));
+});
+
+describe("isUsableRephrase", () => {
+  it("keeps a question", () => expect(isUsableRephrase("So, what is normalization and why does it help? ")).toBe(true));
+  it("rejects a rephrase that answers instead of asks", () =>
+    expect(isUsableRephrase("So, normalization is about organizing data to reduce redundancy.")).toBe(false));
 });
 
 describe("buildCoachPrompt", () => {

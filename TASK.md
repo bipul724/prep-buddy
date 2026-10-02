@@ -126,9 +126,9 @@ Legend: **P0** must-have · **P1** nice-to-have · **P2** only if time is left �
 - [ ] **T16 · P0 · Profiles** 🛠️ *code written, verify pending*: `POST/GET /api/profiles`, `GET /api/profiles/[id]`, `GET …/progress`. ✅ Verify: smoke rows 3 and 4 (TESTING.md §3).
 - [ ] **T17 · P0 · Sessions + next question** 🛠️ *code written, verify pending*: `services/selection.ts` (ARCHITECTURE.md §5) + `POST /api/sessions`, `GET /api/sessions/[id]`, `POST …/questions/next`. ✅ Verify: 15 calls on a 14-question bank → the 15th is 409 `BANK_EXHAUSTED`.
 - [ ] **T18 · P0 · Submit answer (idempotent + transaction)** 🛠️ *code written, verify pending*: `POST …/attempts` with `Idempotency-Key`, Attempt insert + TopicStat upsert in one `prisma.$transaction` (ARCHITECTURE.md §7). 🔬 (SQL verified) ✅ Verify: the same key twice → `replayed:true`, 1 DB row.
-- [ ] **T19 · P0 · Complete session** 🛠️ *code written, verify pending*: coach summary; `overallScore` computed in code. ✅ Verify: exactly 3 `nextSteps`; 0 attempts → `ABANDONED`.
-- [ ] **T20 · P1 · Questions list + similar + add** 🛠️ *code written, verify pending* (API.md "Questions"). ✅ Verify: `similar` results are sorted by `distance` ascending.
-- [ ] **T21 · P0 · Smoke script** 🛠️ *code written, verify pending*: save the cURL block from docs/API.md as `scripts/smoke.sh`. ✅ Verify: it runs end to end without errors.
+- [x] **T19 · P0 · Complete session**: coach summary; `overallScore` computed in code. ✅ Verify: exactly 3 `nextSteps`; 0 attempts → `ABANDONED`.
+- [x] **T20 · P1 · Questions list + similar + add** (API.md "Questions"). ✅ Verify: `similar` results are sorted by `distance` ascending.
+- [x] **T21 · P0 · Smoke script**: save the cURL block from docs/API.md as `scripts/smoke.sh`. ✅ Verify: it runs end to end without errors.
 
 ## Phase 4 — UI (Sat evening · ⏱ 3 h)
 

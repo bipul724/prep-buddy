@@ -1,39 +1,45 @@
 @import "tailwindcss";
 
-/* Design tokens. Light by default, dark via prefers-color-scheme. */
+/* Design tokens. Warm paper + deep green ink, marigold highlight. Dark via prefers-color-scheme. */
 :root {
-  --bg: #f7f6f3;
-  --surface: #ffffff;
-  --surface-2: #f0eee9;
-  --border: #e3e0d8;
-  --text: #1c1b19;
-  --muted: #6b6860;
-  --accent: #2f5d50;
-  --accent-fg: #ffffff;
-  --accent-soft: #e3efe9;
-  --good: #2f7a4a;
-  --okay: #a26a00;
-  --weak: #b23b3b;
-  --weak-soft: #fbeaea;
+  --bg: #f6f3ec;
+  --surface: #fffdf8;
+  --surface-2: #efebe1;
+  --border: #e2ddd0;
+  --text: #1b1a17;
+  --muted: #6a665c;
+  --accent: #23493e;
+  --accent-fg: #fbf8f1;
+  --accent-soft: #dfeae4;
+  --highlight: #e9a23b;
+  --highlight-soft: #fbecd2;
+  --good: #2d7448;
+  --okay: #9a6400;
+  --weak: #b03a35;
+  --weak-soft: #f8e4e1;
   --focus: #3b6cf6;
+  --shadow: 0 1px 2px rgb(40 32 12 / 0.05), 0 8px 24px -12px rgb(40 32 12 / 0.18);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #141412;
-    --surface: #1d1d1a;
-    --surface-2: #262622;
-    --border: #34332e;
-    --text: #eceae4;
-    --muted: #a3a097;
-    --accent: #7cc4ab;
-    --accent-fg: #0f1f1a;
-    --accent-soft: #20332c;
-    --good: #6cc48a;
-    --okay: #e0b04a;
-    --weak: #ec7f7f;
-    --weak-soft: #3a2222;
+    --bg: #12130f;
+    --surface: #1b1c18;
+    --surface-2: #25261f;
+    --border: #33342c;
+    --text: #edeae2;
+    --muted: #a19d91;
+    --accent: #8fcfb4;
+    --accent-fg: #0f1d18;
+    --accent-soft: #1f322b;
+    --highlight: #f0b552;
+    --highlight-soft: #3a2e17;
+    --good: #72c892;
+    --okay: #e4b453;
+    --weak: #ef8a82;
+    --weak-soft: #3b2220;
     --focus: #8aa8ff;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -16px rgb(0 0 0 / 0.6);
   }
 }
 
@@ -47,12 +53,17 @@
   --color-accent: var(--accent);
   --color-accent-fg: var(--accent-fg);
   --color-accent-soft: var(--accent-soft);
+  --color-highlight: var(--highlight);
+  --color-highlight-soft: var(--highlight-soft);
   --color-good: var(--good);
   --color-okay: var(--okay);
   --color-weak: var(--weak);
   --color-weak-soft: var(--weak-soft);
-  /* System fonts only: no network fetch, so the app builds and runs offline. */
+  --shadow-card: var(--shadow);
+  /* System fonts only: no network fetch, so the app builds and runs offline.
+     ui-serif is "New York" on macOS. */
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  --font-display: ui-serif, "New York", "Iowan Old Style", Georgia, "Times New Roman", serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
@@ -62,7 +73,37 @@ body {
   font-family: var(--font-sans);
 }
 
-:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 2px;
+/* In a layer so utilities like focus-visible:outline-none can override it. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-border bg-surface shadow-card;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-5 py-2.5 font-medium text-accent-fg transition hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-5 py-2.5 font-medium transition hover:bg-surface-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold tracking-[0.14em] text-muted uppercase;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 0.5s ease-out both;
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
 }

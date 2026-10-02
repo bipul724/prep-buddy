@@ -10,9 +10,12 @@ export function buildInterviewerPrompt(
     `Candidate: ${profile.name}, target role: ${profile.targetRole}`,
     `Topic: ${q.topic}, difficulty: ${q.difficulty}`,
     `Bank question: ${q.prompt}`,
-    `Return JSON with field "spoken".`,
+    `Return JSON with field "spoken": the question as you would ask it, ending with "?". Do not answer it.`,
   ].join("\n");
 }
+
+/** Small models sometimes answer the question instead of asking it; only keep output that is still a question. */
+export const isUsableRephrase = (spoken: string) => spoken.trim().endsWith("?");
 
 /** Strips anything that could close our <answer> wrapper early. */
 export const sanitizeAnswer = (answer: string) => answer.replace(/<\/?answer\s*>/gi, "");

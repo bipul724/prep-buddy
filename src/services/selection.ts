@@ -8,7 +8,7 @@ import { Feedback, InterviewerTurn } from "@/lib/schemas";
 import { nearestQuestions } from "@/lib/vector";
 import { generateObject, ModelError } from "@/services/ai";
 import { pickDifficulty, pickWeakestTopic } from "@/services/difficulty";
-import { buildInterviewerPrompt } from "@/services/prompts";
+import { buildInterviewerPrompt, isUsableRephrase } from "@/services/prompts";
 
 export type PickReason = "targeted" | "weakest-topic" | "random" | "fallback";
 
@@ -82,7 +82,8 @@ export async function pickNext(
   if (env.REPHRASE_QUESTIONS) {
     try {
       const turn = await generateObject("interviewer", buildInterviewerPrompt(profile, question), InterviewerTurn);
-      spoken = turn.spoken;
+      if (isUsableRephrase(turn.spoken)) spoken = turn.spoken.trim().replace(/\?+$/, "?");
+      else console.warn("rephrase is not a question, using bank wording:", turn.spoken);
     } catch (e) {
       if (e instanceof ModelError && e.code === "MODEL_UNAVAILABLE") throw e;
       console.warn("rephrase failed, using bank wording:", String(e));

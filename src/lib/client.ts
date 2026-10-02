@@ -97,3 +97,11 @@ export type AttemptView = {
   feedback: Feedback | null;
   question: QuestionView;
 };
+
+/** Model text cleanup for display: drop list numbering the UI already shows and Markdown emphasis marks. */
+export const cleanText = (s: string) =>
+  s
+    .replace(/^\s*(?:\d+[.)]|[-*•])\s+/, "")
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/(^|[^\w*])\*(?!\s)(.+?)(?<!\s)\*(?!\w)/g, "$1$2")
+    .trim();

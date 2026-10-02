@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnswerBox } from "@/components/AnswerBox";
 import { FeedbackCard } from "@/components/FeedbackCard";
 import { QuestionCard } from "@/components/QuestionCard";
-import { api, ClientError, type AttemptView, type Feedback, type QuestionView, type SessionView } from "@/lib/client";
+import { api, ClientError, TOPIC_LABELS, type AttemptView, type Feedback, type QuestionView, type SessionView } from "@/lib/client";
 import { useElapsed } from "@/lib/useElapsed";
 
 type Phase = "loading" | "asking" | "answering" | "grading" | "feedback" | "ending" | "exhausted" | "error";
@@ -17,10 +17,20 @@ export default function SessionPage() {
   const [current, setCurrent] = useState<{ question: QuestionView; spoken: string } | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [answered, setAnswered] = useState(0);
+  const [sessionTopic, setSessionTopic] = useState<string | null>(null);
   const [error, setError] = useState<{ message: string; retry: () => void } | null>(null);
   const started = useRef(false);
+  const feedbackRef = useRef<HTMLDivElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
   const waiting = phase === "asking" || phase === "grading" || phase === "ending";
   const elapsed = useElapsed(waiting);
+
+  // Show the score first; keyboard focus goes to "Next question" without jumping past it.
+  useEffect(() => {
+    if (phase !== "feedback") return;
+    nextRef.current?.focus({ preventScroll: true });
+    feedbackRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [phase]);
 
   const fail = (err: unknown, retry: () => void) => {
     setError({ message: err instanceof ClientError ? err.message : "Something went wrong.", retry });
@@ -54,6 +64,7 @@ export default function SessionPage() {
         );
         if (data.session.status !== "ACTIVE") return router.replace(`/session/${id}/summary`);
         setAnswered(data.attempts.length);
+        setSessionTopic(data.session.topic);
         if (data.currentQuestion) {
           setCurrent({ question: data.currentQuestion, spoken: data.currentQuestion.prompt });
           setPhase("answering");
@@ -106,45 +117,77 @@ export default function SessionPage() {
     phase === "asking" ? "Picking your next question" : phase === "grading" ? "Gemma is grading your answer" : "Writing your session summary";
 
   return (
-    <div className="space-y-5">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="text-sm text-muted">
-          {answered} {answered === 1 ? "answer" : "answers"} this session
-        </p>
-        <button
-          type="button"
-          onClick={end}
-          disabled={waiting}
-          className="rounded-lg border border-border px-3 py-1.5 text-sm disabled:opacity-50"
-        >
+    <div className="mx-auto max-w-3xl space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p className="eyebrow">Practice session · {sessionTopic ? TOPIC_LABELS[sessionTopic] : "Auto"}</p>
+          <div className="mt-2 flex items-center gap-1.5" aria-label={`${answered} answered`}>
+            {Array.from({ length: Math.max(5, answered + 1) }, (_, i) => (
+              <span
+                key={i}
+                aria-hidden
+                className={`h-1.5 w-6 rounded-full transition ${
+                  i < answered ? "bg-accent" : i === answered && phase !== "feedback" ? "bg-highlight" : "bg-surface-2"
+                }`}
+              />
+            ))}
+            <span className="ml-2 text-xs text-muted tabular-nums">{answered} answered</span>
+          </div>
+        </div>
+        <button type="button" onClick={end} disabled={waiting} className="btn-secondary px-4 py-2 text-sm">
           End session
         </button>
       </div>
 
-      {current && phase !== "asking" && <QuestionCard question={current.question} spoken={current.spoken} index={answered + (phase === "feedback" ? 0 : 1)} />}
+      {current && phase !== "asking" && (
+        <QuestionCard
+          question={current.question}
+          spoken={current.spoken}
+          index={answered + (phase === "feedback" ? 0 : 1)}
+        />
+      )}
 
-      <div aria-live="polite" className="space-y-5">
+      <div aria-live="polite" className="space-y-6">
         {waiting && (
-          <p className="flex items-center gap-2 rounded-lg bg-surface-2 p-4 text-sm">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-accent" aria-hidden />
-            {waitText}… {elapsed}s
-            {elapsed >= 10 && <span className="text-muted"> (the first call loads the model, which is slower)</span>}
-          </p>
+          <div className="card flex items-center gap-4 p-5">
+            <span
+              aria-hidden
+              className="h-9 w-9 shrink-0 animate-spin rounded-full border-[3px] border-surface-2 border-t-accent"
+            />
+            <div>
+              <p className="font-medium">
+                {waitText}… <span className="text-muted tabular-nums">{elapsed}s</span>
+              </p>
+              <p className="text-sm text-muted">
+                {elapsed >= 10
+                  ? "The first call after a break loads the model into memory, so it is slower."
+                  : "Gemma is running on this laptop, nothing is sent online."}
+              </p>
+            </div>
+          </div>
         )}
         {phase === "error" && error && (
-          <div role="alert" className="space-y-2 rounded-lg bg-weak-soft p-4 text-sm text-weak">
-            <p>{error.message}</p>
-            <button type="button" onClick={error.retry} className="rounded-lg border border-weak px-3 py-1">
+          <div role="alert" className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-weak-soft p-5 text-sm text-weak">
+            <p className="max-w-lg">{error.message}</p>
+            <button type="button" onClick={error.retry} className="rounded-xl border border-weak px-4 py-2 font-medium">
               Try again
             </button>
           </div>
         )}
         {phase === "exhausted" && (
-          <p className="rounded-lg bg-surface-2 p-4 text-sm">
-            You have answered every question in this topic. End the session to see your summary.
-          </p>
+          <div className="card p-6 text-center">
+            <p className="font-display text-xl font-semibold">You&apos;ve cleared the bank 🎉</p>
+            <p className="mt-1 text-sm text-muted">Every question here has been asked. End the session to see your summary.</p>
+            <button type="button" onClick={end} className="btn-primary mt-4">
+              See my summary
+            </button>
+          </div>
         )}
-        {phase === "feedback" && feedback && <FeedbackCard feedback={feedback} />}
+        {phase === "feedback" && feedback && (
+          <div ref={feedbackRef} className="scroll-mt-20">
+            <FeedbackCard feedback={feedback} />
+          </div>
+        )}
       </div>
 
       {(phase === "answering" || phase === "grading") && current && (
@@ -153,16 +196,11 @@ export default function SessionPage() {
 
       {phase === "feedback" && (
         <div className="flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={nextQuestion}
-            className="rounded-lg bg-accent px-4 py-2 font-medium text-accent-fg"
-            autoFocus
-          >
-            Next question
+          <button ref={nextRef} type="button" onClick={nextQuestion} className="btn-primary px-6 py-3">
+            Next question →
           </button>
-          <button type="button" onClick={end} className="rounded-lg border border-border px-4 py-2">
-            End session
+          <button type="button" onClick={end} className="btn-secondary px-6 py-3">
+            Finish and see summary
           </button>
         </div>
       )}

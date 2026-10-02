@@ -82,5 +82,257 @@
     "difficulty": "MEDIUM",
     "prompt": "Describe a time you faced a difficult problem in a team project and how you handled it.",
     "keyPoints": ["STAR format: situation, task, action, result", "your own specific actions", "measurable result", "what you learned"]
+  },
+  {
+    "topic": "DSA",
+    "difficulty": "EASY",
+    "prompt": "What is the difference between a stack and a queue? Give one real use of each.",
+    "keyPoints": ["stack is LIFO, queue is FIFO", "push/pop and enqueue/dequeue are O(1)", "stack use: function calls, undo, bracket matching", "queue use: BFS, task or print scheduling"]
+  },
+  {
+    "topic": "DSA",
+    "difficulty": "EASY",
+    "prompt": "How does binary search work, and what must be true about the input for it to work?",
+    "keyPoints": ["input must be sorted", "compare with the middle element and discard half each step", "O(log n) time", "careful loop bounds and mid calculation to avoid off-by-one or overflow"]
+  },
+  {
+    "topic": "DSA",
+    "difficulty": "MEDIUM",
+    "prompt": "Compare merge sort and quick sort. When would you prefer one over the other?",
+    "keyPoints": ["both are divide and conquer, O(n log n) on average", "quick sort is O(n^2) in the worst case with bad pivots", "merge sort is stable but needs O(n) extra space", "quick sort is in-place and cache friendly", "merge sort suits linked lists and external sorting"]
+  },
+  {
+    "topic": "DSA",
+    "difficulty": "MEDIUM",
+    "prompt": "How would you detect a cycle in a linked list, and why does your approach work?",
+    "keyPoints": ["Floyd's slow and fast pointers", "fast moves two steps, slow moves one", "they meet only if a cycle exists", "O(n) time and O(1) space", "hash set alternative costs O(n) space"]
+  },
+  {
+    "topic": "DSA",
+    "difficulty": "HARD",
+    "prompt": "How do you recognise that a problem can be solved with dynamic programming? Explain using coin change or longest common subsequence.",
+    "keyPoints": ["overlapping subproblems", "optimal substructure", "define the state and the recurrence", "memoization (top-down) vs tabulation (bottom-up)", "improves exponential recursion to polynomial time"]
+  },
+  {
+    "topic": "DSA",
+    "difficulty": "HARD",
+    "prompt": "How would you find the shortest path in a weighted graph, and what changes if some edge weights are negative?",
+    "keyPoints": ["Dijkstra with a min-heap, O((V + E) log V)", "Dijkstra is wrong with negative edge weights", "Bellman-Ford handles negative weights in O(V * E)", "Bellman-Ford can detect negative cycles", "plain BFS is enough when all edges have equal weight"]
+  },
+  {
+    "topic": "CS_FUNDAMENTALS",
+    "difficulty": "EASY",
+    "prompt": "What is the difference between a compiler and an interpreter?",
+    "keyPoints": ["compiler translates the whole program before it runs", "interpreter executes the source statement by statement", "compiled code usually runs faster", "compile errors appear before running, interpreter errors during the run", "examples: C/C++ vs Python; Java mixes both with bytecode and JIT"]
+  },
+  {
+    "topic": "CS_FUNDAMENTALS",
+    "difficulty": "EASY",
+    "prompt": "What is the difference between stack memory and heap memory in a running program?",
+    "keyPoints": ["stack holds function call frames and local variables", "heap holds dynamically allocated objects", "stack is automatic, fast and limited in size", "heap is managed manually or by a garbage collector", "typical failures: stack overflow vs memory leak"]
+  },
+  {
+    "topic": "CS_FUNDAMENTALS",
+    "difficulty": "MEDIUM",
+    "prompt": "What is recursion, and what are its risks compared with iteration?",
+    "keyPoints": ["a function calls itself on a smaller input", "needs a base case to stop", "every call uses a stack frame, so deep recursion can overflow the stack", "any recursion can be rewritten as iteration with an explicit stack"]
+  },
+  {
+    "topic": "CS_FUNDAMENTALS",
+    "difficulty": "MEDIUM",
+    "prompt": "Why do computers store negative integers in two's complement form?",
+    "keyPoints": ["negate by inverting all bits and adding 1", "only one representation of zero", "the same adder circuit handles addition and subtraction", "n bits store -2^(n-1) to 2^(n-1) - 1", "overflow wraps around"]
+  },
+  {
+    "topic": "CS_FUNDAMENTALS",
+    "difficulty": "HARD",
+    "prompt": "What is the difference between concurrency and parallelism? Give an example of each.",
+    "keyPoints": ["concurrency: several tasks make progress in overlapping time", "parallelism: tasks run at the same instant on multiple cores", "concurrency is possible on a single core by interleaving", "example: async web server vs splitting a big computation across cores"]
+  },
+  {
+    "topic": "CS_FUNDAMENTALS",
+    "difficulty": "HARD",
+    "prompt": "How does garbage collection work, and what are its trade-offs compared with manual memory management?",
+    "keyPoints": ["frees objects that are no longer reachable", "reference counting fails on cycles", "tracing collectors: mark-and-sweep, generational collection", "costs: pause times and extra CPU and memory", "benefit: no dangling pointers or double frees"]
+  },
+  {
+    "topic": "DBMS",
+    "difficulty": "EASY",
+    "prompt": "What is the difference between a primary key and a foreign key?",
+    "keyPoints": ["primary key uniquely identifies each row and cannot be NULL", "foreign key refers to a primary or unique key in another table", "foreign keys enforce referential integrity", "one primary key per table, many foreign keys allowed"]
+  },
+  {
+    "topic": "DBMS",
+    "difficulty": "EASY",
+    "prompt": "Explain INNER JOIN, LEFT JOIN and FULL OUTER JOIN using a customers and orders example.",
+    "keyPoints": ["inner join returns only matching rows", "left join keeps every left row, NULLs where nothing matches", "full outer join keeps unmatched rows from both sides", "example: customers without orders appear only in left and full joins"]
+  },
+  {
+    "topic": "DBMS",
+    "difficulty": "MEDIUM",
+    "prompt": "What is an index, how does it make queries faster, and what does it cost?",
+    "keyPoints": ["usually a B-tree on one or more columns", "avoids a full table scan, roughly O(log n) lookup", "slows down inserts, updates and deletes", "uses extra storage", "worth it on selective columns used in WHERE, JOIN or ORDER BY"]
+  },
+  {
+    "topic": "DBMS",
+    "difficulty": "MEDIUM",
+    "prompt": "What is the difference between WHERE and HAVING? Describe a query that needs both.",
+    "keyPoints": ["WHERE filters rows before grouping", "HAVING filters groups after GROUP BY", "HAVING can use aggregates such as COUNT or SUM", "example: departments with more than 5 employees earning above a threshold"]
+  },
+  {
+    "topic": "DBMS",
+    "difficulty": "HARD",
+    "prompt": "What problems can occur when transactions run at the same time, and how do isolation levels prevent them?",
+    "keyPoints": ["dirty read, non-repeatable read, phantom read", "lost update", "levels: read uncommitted, read committed, repeatable read, serializable", "stronger isolation means less concurrency", "implemented with locks or MVCC"]
+  },
+  {
+    "topic": "DBMS",
+    "difficulty": "HARD",
+    "prompt": "How does a database recover to a consistent state after a crash in the middle of transactions?",
+    "keyPoints": ["write-ahead log: changes are logged before data pages are written", "redo committed transactions that were not yet on disk", "undo transactions that never committed", "checkpoints limit how much log must be replayed", "this is how atomicity and durability are kept"]
+  },
+  {
+    "topic": "OS",
+    "difficulty": "EASY",
+    "prompt": "What is a context switch, and why is it considered overhead?",
+    "keyPoints": ["save the running task's registers and program counter", "load the next task's saved state", "no useful work happens during the switch", "caches and TLB lose locality afterwards", "thread switches are cheaper than process switches"]
+  },
+  {
+    "topic": "OS",
+    "difficulty": "EASY",
+    "prompt": "What is virtual memory, and why do operating systems use it?",
+    "keyPoints": ["each process gets its own private address space", "page tables map virtual addresses to physical memory", "programs larger than RAM can run by using disk", "isolates processes from one another"]
+  },
+  {
+    "topic": "OS",
+    "difficulty": "MEDIUM",
+    "prompt": "Compare FCFS, Shortest Job First and Round Robin CPU scheduling.",
+    "keyPoints": ["FCFS is simple but suffers the convoy effect", "SJF minimises average waiting time but needs burst estimates", "SJF can starve long jobs", "Round Robin uses a time quantum and gives good response time", "quantum too small means many context switches, too large behaves like FCFS"]
+  },
+  {
+    "topic": "OS",
+    "difficulty": "MEDIUM",
+    "prompt": "What is the difference between a mutex and a semaphore, and what problem do both solve?",
+    "keyPoints": ["both prevent race conditions on shared data", "mutex: one owner at a time, the owner must unlock", "semaphore: counter that allows up to N holders", "wait (P) and signal (V) operations", "semaphores also used for signalling, e.g. producer-consumer"]
+  },
+  {
+    "topic": "OS",
+    "difficulty": "HARD",
+    "prompt": "How does paging translate a virtual address to a physical address, and what role does the TLB play?",
+    "keyPoints": ["address splits into page number and offset", "page table maps page number to frame number", "TLB caches recent translations to skip the page table lookup", "TLB miss means a page table walk", "page fault when the page is not in RAM"]
+  },
+  {
+    "topic": "OS",
+    "difficulty": "HARD",
+    "prompt": "What is thrashing, and how can an operating system detect and reduce it?",
+    "keyPoints": ["system spends more time paging than executing", "happens when working sets do not fit in available frames", "CPU utilisation drops as more processes are added", "working set model or page fault frequency to detect", "fix by reducing the degree of multiprogramming"]
+  },
+  {
+    "topic": "CN",
+    "difficulty": "EASY",
+    "prompt": "Name the layers of the OSI model and give one protocol or device that works at each.",
+    "keyPoints": ["physical, data link, network, transport, session, presentation, application", "data link: Ethernet, switches", "network: IP, routers", "transport: TCP, UDP", "application: HTTP, DNS"]
+  },
+  {
+    "topic": "CN",
+    "difficulty": "EASY",
+    "prompt": "What is the difference between a hub, a switch and a router?",
+    "keyPoints": ["hub repeats signals to every port (layer 1)", "switch forwards frames using a MAC address table (layer 2)", "router forwards packets between networks using IP addresses (layer 3)", "routers separate broadcast domains"]
+  },
+  {
+    "topic": "CN",
+    "difficulty": "MEDIUM",
+    "prompt": "How does DNS turn a domain name into an IP address?",
+    "keyPoints": ["checks browser and OS cache first", "recursive resolver asks root, then TLD, then authoritative server", "answers are cached for their TTL", "usually runs over UDP port 53"]
+  },
+  {
+    "topic": "CN",
+    "difficulty": "MEDIUM",
+    "prompt": "What does HTTPS add on top of HTTP, and how does the browser know it is talking to the real site?",
+    "keyPoints": ["HTTPS is HTTP over TLS", "encryption and integrity protect against eavesdropping and tampering", "server presents a certificate signed by a trusted certificate authority", "default ports 80 vs 443"]
+  },
+  {
+    "topic": "CN",
+    "difficulty": "HARD",
+    "prompt": "What is CIDR notation? How many usable hosts does a /26 network have, and what is its subnet mask?",
+    "keyPoints": ["/n means the first n bits are the network part", "/26 leaves 6 host bits, 64 addresses", "62 usable hosts after removing network and broadcast addresses", "mask is 255.255.255.192", "subnetting splits a big network into smaller ones"]
+  },
+  {
+    "topic": "CN",
+    "difficulty": "HARD",
+    "prompt": "How does TCP decide how fast to send data? Explain flow control and congestion control.",
+    "keyPoints": ["flow control protects the receiver using the advertised receive window", "congestion control protects the network", "slow start grows the window exponentially", "congestion avoidance grows it linearly", "window is cut sharply on packet loss (AIMD)"]
+  },
+  {
+    "topic": "OOP",
+    "difficulty": "EASY",
+    "prompt": "What is the difference between a class and an object?",
+    "keyPoints": ["class is a blueprint of fields and methods", "object is an instance with its own state", "many objects can be created from one class", "example: Car class vs a specific car object"]
+  },
+  {
+    "topic": "OOP",
+    "difficulty": "EASY",
+    "prompt": "What is a constructor, and how is it different from a regular method?",
+    "keyPoints": ["runs automatically when an object is created", "has the class name and no return type", "initialises the object's state", "can be overloaded; a default one exists if none is written"]
+  },
+  {
+    "topic": "OOP",
+    "difficulty": "MEDIUM",
+    "prompt": "What is the difference between an abstract class and an interface? When would you use each?",
+    "keyPoints": ["abstract class can hold state, constructors and implemented methods", "interface defines a contract (Java 8+ allows default methods)", "a class extends one class but can implement many interfaces", "abstract class for shared base code, interface for a capability across unrelated classes"]
+  },
+  {
+    "topic": "OOP",
+    "difficulty": "MEDIUM",
+    "prompt": "Why is composition often preferred over inheritance? Give an example.",
+    "keyPoints": ["inheritance is is-a, composition is has-a", "inheritance tightly couples a subclass to its parent's internals", "composition lets you swap behaviour at runtime", "example: a Car has an Engine instead of extending Engine"]
+  },
+  {
+    "topic": "OOP",
+    "difficulty": "HARD",
+    "prompt": "How does runtime polymorphism work under the hood, for example through virtual functions?",
+    "keyPoints": ["the method is chosen by the object's actual type at runtime", "each class has a vtable of method pointers", "each object holds a pointer to its class's vtable", "a parent reference to a child object calls the child's method", "small cost of an indirect call"]
+  },
+  {
+    "topic": "OOP",
+    "difficulty": "HARD",
+    "prompt": "Explain the SOLID principles. Pick one and show what goes wrong when it is violated.",
+    "keyPoints": ["single responsibility and open/closed", "Liskov substitution", "interface segregation and dependency inversion", "concrete violation, e.g. Square extending Rectangle breaks Liskov"]
+  },
+  {
+    "topic": "HR",
+    "difficulty": "EASY",
+    "prompt": "Why do you want to join our company, and where do you see yourself in a few years?",
+    "keyPoints": ["shows research about the company's product or work", "connects your skills and interests to the role", "specific, not a generic answer", "realistic growth goal that fits the company"]
+  },
+  {
+    "topic": "HR",
+    "difficulty": "EASY",
+    "prompt": "What is one real strength and one real weakness of yours?",
+    "keyPoints": ["strength backed by a concrete example", "genuine weakness that does not disqualify you for the role", "what you are actively doing to improve it", "avoids cliches like 'I am a perfectionist'"]
+  },
+  {
+    "topic": "HR",
+    "difficulty": "MEDIUM",
+    "prompt": "Walk me through the project you are most proud of. What exactly did you build yourself?",
+    "keyPoints": ["the problem and why it mattered", "your own contribution separated from the team's", "why you chose that tech stack", "one challenge and how you solved it", "result, or what you would improve next"]
+  },
+  {
+    "topic": "HR",
+    "difficulty": "MEDIUM",
+    "prompt": "Tell me about a time you had to learn a new technology quickly to deliver something.",
+    "keyPoints": ["STAR structure", "how you learned: docs, small prototypes, asking for help", "the time pressure involved", "the outcome", "how you would approach learning next time"]
+  },
+  {
+    "topic": "HR",
+    "difficulty": "HARD",
+    "prompt": "Tell me about a time you disagreed with a teammate or mentor. How did you handle it?",
+    "keyPoints": ["stays respectful and focuses on the issue, not the person", "listened and used facts or data to argue", "how it was resolved, even if your idea was not chosen", "what you learned about working with others"]
+  },
+  {
+    "topic": "HR",
+    "difficulty": "HARD",
+    "prompt": "Tell me about a time you failed or missed a deadline. What did you do afterwards?",
+    "keyPoints": ["honest and takes ownership without blaming others", "explains specifically what went wrong", "what you did to recover", "a concrete change in how you work now"]
   }
 ]

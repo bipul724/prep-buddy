@@ -48,7 +48,9 @@ echo "$SIMILAR" | jq -e '[.questions[].distance] as $d | $d == ($d | sort)' >/de
 DONE=$(curl -s -X POST "$BASE/api/sessions/$SESSION/complete")
 [ "$(echo "$DONE" | jq '.summary.nextSteps | length')" = 3 ] && pass "complete: 3 next steps, overall $(echo "$DONE" | jq .summary.overallScore)" \
   || fail "summary wrong: $DONE"
-[ "$(status -X POST "$BASE/api/sessions/$SESSION/attempts" -H 'Content-Type: application/json' -d "{\"questionId\":\"$Q\",\"answer\":\"x\"}")" = 409 ] \
+# Build the body first: macOS bash 3.2 brace-expands a JSON literal inside "$( … )".
+LATE_BODY="{\"questionId\":\"$Q\",\"answer\":\"x\"}"
+[ "$(status -X POST "$BASE/api/sessions/$SESSION/attempts" -H 'Content-Type: application/json' -d "$LATE_BODY")" = 409 ] \
   && pass "attempt after complete → 409" || fail "should be 409 SESSION_NOT_ACTIVE"
 
 echo "4. Empty session"
