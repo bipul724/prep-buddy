@@ -32,6 +32,12 @@ export function toModelUnavailable(e: unknown, model: string): ModelError | null
   return null;
 }
 
+// Small models sometimes loop on a token ("0} 0} 0} ...") until the context fills, which takes minutes.
+// Cap the output and the wall time so a bad generation fails fast instead of hanging the request.
+// num_predict is the only cap Ollama honours here: the provider sends maxOutputTokens as max_output_tokens, which /api/chat ignores.
+const MAX_OUTPUT_TOKENS = 800;
+const CALL_TIMEOUT_MS = 60_000;
+
 export async function generateObject<T>(
   agentId: "interviewer" | "evaluator" | "coach",
   prompt: string,
@@ -40,15 +46,22 @@ export async function generateObject<T>(
   const agent = mastra.getAgentById(agentId);
   let lastError: unknown;
   for (let attempt = 0; attempt < 2; attempt++) {
+    const signal = AbortSignal.timeout(CALL_TIMEOUT_MS);
     try {
       const res = await agent.generate([{ role: "user", content: prompt }], {
         structuredOutput: { schema, errorStrategy: "strict" },
+        providerOptions: { ollama: { options: { num_predict: MAX_OUTPUT_TOKENS } } },
+        abortSignal: signal,
       });
       // Validate again ourselves: never show half-broken JSON to the user.
       return schema.parse(res.object);
     } catch (e) {
       const unavailable = toModelUnavailable(e, env.CHAT_MODEL);
       if (unavailable) throw unavailable;
+      // A second slow attempt would just double the wait.
+      if (signal.aborted) {
+        throw new ModelError("MODEL_OUTPUT_INVALID", `Model took longer than ${CALL_TIMEOUT_MS / 1000}s. Try again.`);
+      }
       lastError = e;
     }
   }
