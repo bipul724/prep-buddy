@@ -12,7 +12,8 @@
     "postinstall": "prisma generate",
     "db:up": "docker compose up -d",
     "db:migrate": "prisma migrate dev",
-    "db:seed": "prisma db seed"
+    "db:seed": "prisma db seed",
+    "golden": "tsx --tsconfig tsconfig.json scripts/golden.ts"
   },
   "dependencies": {
     "@mastra/core": "^1.74.0",
