@@ -3,6 +3,7 @@
 **Deadline: Mon 5 Oct 2026, 12:29 PM IST.** Target: publish the DEV post **Sun 4 Oct night**.
 Every task has a **✅ Verify** step. Don't tick the box until the check passes.
 Commands marked 🔬 were run and passed during planning on 2 Oct 2026 (see docs/VERIFICATION.md).
+🛠️ = code is committed but the ✅ Verify step has not been run yet (needs Ollama + DB).
 
 Legend: **P0** must-have · **P1** nice-to-have · **P2** only if time is left · ⏱ estimate
 
@@ -10,7 +11,7 @@ Legend: **P0** must-have · **P1** nice-to-have · **P2** only if time is left �
 
 ## Phase 0 — Setup (Fri 2 Oct, evening · ⏱ 2 h)
 
-- [ ] **T00 · P0 · Pick your friend** (⏱ 15 min)
+- [x] **T00 · P0 · Pick your friend** (⏱ 15 min)
   Choose ONE real person preparing for placements. Ask them: "Which topics scare you? When do you practise? Is your internet reliable?" Replace `<FRIEND_NAME>` in README.md, docs/PRD.md and docs/SUBMISSION.md.
   ✅ Verify: `grep -rn "<FRIEND_NAME>" README.md docs/` returns nothing.
 
@@ -63,7 +64,7 @@ Legend: **P0** must-have · **P1** nice-to-have · **P2** only if time is left �
   `.gitignore` and `.dockerignore` are already in the repo, and T03's `rsync --ignore-existing` keeps them, so there is nothing to append. Our `.gitignore` extends the Next template with `!.env.example` (the template's `.env*` rule would hide it), `/src/generated/`, and Mastra/editor/media files.
   ✅ Verify: `npm pkg get scripts`; after T06's `git init`: `git check-ignore .env.example` prints nothing (tracked), and `git check-ignore .env src/generated/prisma/client.ts` prints both paths (ignored).
 
-- [ ] **T06 · P0 · Git + GitHub** (⏱ 10 min)
+- [x] **T06 · P0 · Git + GitHub** (⏱ 10 min)
   ```bash
   git init && git add -A && git commit -m "chore: scaffold Prep Buddy (docs, schema, Next 16)"
   ```
@@ -108,7 +109,7 @@ Legend: **P0** must-have · **P1** nice-to-have · **P2** only if time is left �
 - [x] **T12 · P0 · `services/ai.ts` (structured call + retry + error mapping)** (⏱ 30 min) 🔬
   ✅ Verify: with Ollama **quit**, a tsx script calling `generateObject` prints `MODEL_UNAVAILABLE`.
 
-- [ ] **T13 · P0 · First real grading** (⏱ 30 min)
+- [ ] **T13 · P0 · First real grading** 🛠️ *code written, verify pending* (⏱ 30 min)
   Write `scripts/try-eval.ts` that grades one DBMS answer:
   ```bash
   npx tsx --tsconfig tsconfig.json scripts/try-eval.ts
@@ -121,27 +122,27 @@ Legend: **P0** must-have · **P1** nice-to-have · **P2** only if time is left �
 
 ## Phase 3 — API (Sat afternoon · ⏱ 3 h)
 
-- [ ] **T15 · P0 · `GET /api/health`** 🔬 ✅ Verify: 200 with everything up; 503 `{"ok":false,…}` with Ollama quit.
-- [ ] **T16 · P0 · Profiles**: `POST/GET /api/profiles`, `GET /api/profiles/[id]`, `GET …/progress`. ✅ Verify: smoke rows 3 and 4 (TESTING.md §3).
-- [ ] **T17 · P0 · Sessions + next question**: `services/selection.ts` (ARCHITECTURE.md §5) + `POST /api/sessions`, `GET /api/sessions/[id]`, `POST …/questions/next`. ✅ Verify: 15 calls on a 14-question bank → the 15th is 409 `BANK_EXHAUSTED`.
-- [ ] **T18 · P0 · Submit answer (idempotent + transaction)**: `POST …/attempts` with `Idempotency-Key`, Attempt insert + TopicStat upsert in one `prisma.$transaction` (ARCHITECTURE.md §7). 🔬 (SQL verified) ✅ Verify: the same key twice → `replayed:true`, 1 DB row.
-- [ ] **T19 · P0 · Complete session**: coach summary; `overallScore` computed in code. ✅ Verify: exactly 3 `nextSteps`; 0 attempts → `ABANDONED`.
-- [ ] **T20 · P1 · Questions list + similar + add** (API.md "Questions"). ✅ Verify: `similar` results are sorted by `distance` ascending.
-- [ ] **T21 · P0 · Smoke script**: save the cURL block from docs/API.md as `scripts/smoke.sh`. ✅ Verify: it runs end to end without errors.
+- [ ] **T15 · P0 · `GET /api/health`** 🛠️ *code written, verify pending* 🔬 ✅ Verify: 200 with everything up; 503 `{"ok":false,…}` with Ollama quit.
+- [ ] **T16 · P0 · Profiles** 🛠️ *code written, verify pending*: `POST/GET /api/profiles`, `GET /api/profiles/[id]`, `GET …/progress`. ✅ Verify: smoke rows 3 and 4 (TESTING.md §3).
+- [ ] **T17 · P0 · Sessions + next question** 🛠️ *code written, verify pending*: `services/selection.ts` (ARCHITECTURE.md §5) + `POST /api/sessions`, `GET /api/sessions/[id]`, `POST …/questions/next`. ✅ Verify: 15 calls on a 14-question bank → the 15th is 409 `BANK_EXHAUSTED`.
+- [ ] **T18 · P0 · Submit answer (idempotent + transaction)** 🛠️ *code written, verify pending*: `POST …/attempts` with `Idempotency-Key`, Attempt insert + TopicStat upsert in one `prisma.$transaction` (ARCHITECTURE.md §7). 🔬 (SQL verified) ✅ Verify: the same key twice → `replayed:true`, 1 DB row.
+- [ ] **T19 · P0 · Complete session** 🛠️ *code written, verify pending*: coach summary; `overallScore` computed in code. ✅ Verify: exactly 3 `nextSteps`; 0 attempts → `ABANDONED`.
+- [ ] **T20 · P1 · Questions list + similar + add** 🛠️ *code written, verify pending* (API.md "Questions"). ✅ Verify: `similar` results are sorted by `distance` ascending.
+- [ ] **T21 · P0 · Smoke script** 🛠️ *code written, verify pending*: save the cURL block from docs/API.md as `scripts/smoke.sh`. ✅ Verify: it runs end to end without errors.
 
 ## Phase 4 — UI (Sat evening · ⏱ 3 h)
 
-- [ ] **T22 · P1 · shadcn/ui** 🔬
+- [ ] **T22 · P1 · shadcn/ui** 🔬 ⏭️ *skipped: plain Tailwind (cut list #2)*
   ```bash
   npx shadcn@4.21.1 init --defaults --yes
   npx shadcn@4.21.1 add button card textarea badge select progress sonner --yes
   ```
   ✅ Verify: `src/components/ui/` has 7 files; `npm run build` passes. (Plain Tailwind is fine if you are short on time.)
-- [ ] **T23 · P0 · StatusBadge** (polls `/api/health`; shows the fix-it command when red).
-- [ ] **T24 · P0 · Onboarding page** `/onboarding` → creates a profile.
-- [ ] **T25 · P0 · Dashboard** `/`: per-topic averages, weakest topic, "Start practice" (topic select incl. Auto).
-- [ ] **T26 · P0 · Session page** `/session/[id]`: question → textarea → submit (new `crypto.randomUUID()` per click, button disabled while loading) → FeedbackCard → "Next question" / "End session".
-- [ ] **T27 · P0 · Summary page** `/session/[id]/summary`.
+- [ ] **T23 · P0 · StatusBadge** 🛠️ *code written, verify pending* (polls `/api/health`; shows the fix-it command when red).
+- [ ] **T24 · P0 · Onboarding page** 🛠️ *code written, verify pending* `/onboarding` → creates a profile.
+- [ ] **T25 · P0 · Dashboard** 🛠️ *code written, verify pending* `/`: per-topic averages, weakest topic, "Start practice" (topic select incl. Auto).
+- [ ] **T26 · P0 · Session page** 🛠️ *code written, verify pending* `/session/[id]`: question → textarea → submit (new `crypto.randomUUID()` per click, button disabled while loading) → FeedbackCard → "Next question" / "End session".
+- [ ] **T27 · P0 · Summary page** 🛠️ *code written, verify pending* `/session/[id]/summary`.
   ✅ Verify (T23–T27): the manual QA checklist in TESTING.md §5 passes up to "Dashboard shows updated averages".
 
 ## Phase 5 — Quality (Sun 4 Oct, morning · ⏱ 2.5 h)

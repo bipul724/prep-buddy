@@ -4,7 +4,7 @@
 |---|---|
 | **Product** | Prep Buddy: an offline, private mock-interview coach for campus placements |
 | **Author / Owner** | Bipul Chamoli |
-| **Built for** | `<FRIEND_NAME>`: one real friend preparing for placements (fill this in, the challenge requires a real person) |
+| **Built for** | Siddhant Singh: one real friend preparing for placements |
 | **Challenge** | DEV *Hacktoberfest Weekend Challenge: Build for a Friend* |
 | **Deadline** | **Mon 5 Oct 2026, 12:29 PM IST** (06:59 UTC) |
 | **Status** | Draft v1.0 (2 Oct 2026) |
@@ -14,7 +14,7 @@
 
 ## 1. Problem
 
-`<FRIEND_NAME>` is in final-year B.Tech and preparing for campus placements. Practising interviews is hard because:
+Siddhant Singh is in final-year B.Tech and preparing for campus placements. Practising interviews is hard because:
 
 1. **There is no one to practise with at 11 PM.** Friends are busy, and seniors are not always available.
 2. **Paid mock-interview platforms cost money** and need a stable internet connection, which is not reliable in the hostel.
@@ -41,7 +41,7 @@ A web app that runs **completely on a laptop**. An open-weight model (**Google G
 - G2: Every answer gets **structured, useful feedback** (score, strengths, gaps, ideal-answer outline) in **under ~30 s** on an 8 GB M2 with `gemma3:4b`. *(This is a target to measure; see docs/TESTING.md.)*
 - G3: The app **remembers weak topics** and picks the next question from them.
 - G4: The repo is easy to run: one README, a Docker database and Ollama, with no cloud accounts.
-- G5: The project is real enough to hand to `<FRIEND_NAME>` and quote their feedback in the DEV post.
+- G5: The project is real enough to hand to Siddhant Singh and quote their feedback in the DEV post.
 
 ### Non-goals (explicitly out of scope this weekend)
 - User accounts / login (single-user local app).
@@ -52,7 +52,7 @@ A web app that runs **completely on a laptop**. An open-weight model (**Google G
 
 ## 5. Users and persona
 
-**Primary persona: `<FRIEND_NAME>`, final-year CSE student**
+**Primary persona: Siddhant Singh, final-year CSE student**
 - Laptop: a mid-range machine (8 GB+ RAM recommended).
 - Goal: clear the technical + HR rounds for SDE-1 / Analyst roles.
 - Pain: limited time, gets nervous, does not know their weak areas.
@@ -104,7 +104,7 @@ A web app that runs **completely on a laptop**. An open-weight model (**Google G
 | NFR-9 License | MIT for our code. The Gemma model is used under Google's Gemma Terms of Use. |
 
 ## 9. Success metrics (for the weekend)
-- `<FRIEND_NAME>` completes **≥ 2 sessions** and gives a quotable reaction for the DEV post.
+- Siddhant Singh completes **≥ 2 sessions** and gives a quotable reaction for the DEV post.
 - **0 crashes** during the demo recording.
 - Feedback judged "useful" by the friend on ≥ 4 of 5 answers.
 - DEV post published **before Mon 5 Oct, 12:29 PM IST**.
@@ -123,5 +123,5 @@ A web app that runs **completely on a laptop**. An open-weight model (**Google G
 - **Fri 2 Oct**: setup + data layer. **Sat 3 Oct**: AI + API + UI MVP. **Sun 4 Oct**: polish, friend test, demo video. **Mon 5 Oct (before 12:29 PM IST)**: publish the DEV post. See `TASK.md`.
 
 ## 12. Open questions
-- Which friend? → fill in `<FRIEND_NAME>` everywhere (README, PRD, post).
+- Which friend? → Siddhant Singh (filled in across README, PRD and post).
 - Enter optional prize categories? Gemma and Mastra are free and qualify: **Best Use of Gemma ($200)** and **Best Use of Mastra ($100)**.

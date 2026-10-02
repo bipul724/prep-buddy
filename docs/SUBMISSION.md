@@ -8,7 +8,7 @@
 - [ ] You are **18+** (DEV Official Rules).
 - [ ] It is a **new project built during the challenge window** (2–5 Oct). The repo's first commit should be on or after 2 Oct.
 - [ ] **Open-source AI is at the core** (Gemma via Ollama ✅, Mastra ✅).
-- [ ] Built for **one real friend or loved one** (`<FRIEND_NAME>`).
+- [ ] Built for **one real friend or loved one** (Siddhant Singh).
 - [ ] **One entry** per person per challenge. Teams of up to 4 are allowed: one member publishes and lists teammates' DEV usernames in the body.
 - [ ] Post uses the **submission template**, with tags `devchallenge, weekendchallenge, hf26challenge` (the template pre-fills them).
 - [ ] Includes **what you built + who it's for, a demo, the code, and why open matters**.
@@ -26,7 +26,7 @@
 
 ```markdown
 ---
-title: Prep Buddy: an offline AI interview coach I built for <FRIEND_NAME>
+title: Prep Buddy: an offline AI interview coach I built for Siddhant Singh
 published: false
 tags: devchallenge, weekendchallenge, hf26challenge
 ---
@@ -57,7 +57,7 @@ tags: devchallenge, weekendchallenge, hf26challenge
 
 ## 4. What to write in each section (your notes, then write it in your own voice)
 
-**What I Built**: 2–3 short paragraphs. Who `<FRIEND_NAME>` is, the problem (no practice partner at night, paid tools, bad hostel Wi-Fi, privacy), and what Prep Buddy does in one sentence. Add 1 screenshot of a feedback card.
+**What I Built**: 2–3 short paragraphs. Who Siddhant Singh is, the problem (no practice partner at night, paid tools, bad hostel Wi-Fi, privacy), and what Prep Buddy does in one sentence. Add 1 screenshot of a feedback card.
 
 **Demo**: a 60–120 s screen recording (Cmd+Shift+5 → upload to YouTube unlisted or embed a GIF). Show: the status badge (offline, local models) → a question → an answer → feedback → summary → the weak-topic dashboard. Mention "Wi-Fi is off" on screen.
 
