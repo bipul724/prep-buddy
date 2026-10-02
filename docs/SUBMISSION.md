@@ -38,6 +38,7 @@ tags: devchallenge, weekendchallenge, hf26challenge
 
 ## Demo
 <!-- Share a deployed link or a video demo. -->
+{% youtube TgRr7m_U_FE %}
 
 ## Code
 <!-- Show us the code!  You can embed a GitHub repo directly into your post. -->
@@ -59,7 +60,7 @@ tags: devchallenge, weekendchallenge, hf26challenge
 
 **What I Built**: 2–3 short paragraphs. Who Aman is, the problem (no practice partner at night, paid tools, bad hostel Wi-Fi, privacy), and what Prep Buddy does in one sentence. Add 1 screenshot of a feedback card.
 
-**Demo**: a 60–120 s screen recording (Cmd+Shift+5 → upload to YouTube unlisted or embed a GIF). Show: the status badge (offline, local models) → a question → an answer → feedback → summary → the weak-topic dashboard. Mention "Wi-Fi is off" on screen.
+**Demo**: uploaded at https://youtu.be/TgRr7m_U_FE (DEV embed: `{% youtube TgRr7m_U_FE %}`). A 60–120 s screen recording (Cmd+Shift+5 → upload to YouTube unlisted or embed a GIF). Show: the status badge (offline, local models) → a question → an answer → feedback → summary → the weak-topic dashboard. Mention "Wi-Fi is off" on screen.
 
 **Code**: `{% github bipul724/prep-buddy %}` (DEV's GitHub embed). Make sure the repo is public, has the README, and has the MIT LICENSE.
 
@@ -82,7 +83,7 @@ Also add **your friend's reaction** (a quote) and **real numbers** from TESTING.
 
 ## 5. Pre-publish checklist
 - [ ] Repo public, README complete, MIT LICENSE, no `.env` committed
-- [ ] Demo video plays without sign-in
+- [x] Demo video plays without sign-in
 - [ ] All links work; screenshots are readable
 - [ ] Spell-check done; the title is specific and friendly
 - [ ] `published: true` only when you are ready (DEV will publish immediately)

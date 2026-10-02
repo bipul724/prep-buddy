@@ -6,6 +6,8 @@ Built for Aman for the [DEV Hacktoberfest Weekend Challenge: Build for a Friend]
 
 > ₹0 to run · no API keys · works with Wi-Fi off · your answers never leave your laptop
 
+▶️ **Demo video**: [youtu.be/TgRr7m_U_FE](https://youtu.be/TgRr7m_U_FE)
+
 ![Prep Buddy landing page](docs/screenshots/landing.png)
 
 ## What it does

@@ -156,7 +156,7 @@ Legend: **P0** must-have · **P1** nice-to-have · **P2** only if time is left �
 
 - [x] **T32 · P0 · Hand it to your friend** (sit with them for 15 minutes). Write down their exact reaction. ✅ Verify: you have a quote.
 - [x] **T33 · P0 · Final README**: friend name, screenshots, real numbers. ✅ Verify: a fresh clone + the README steps work (ask a friend, or redo them in a new folder).
-- [ ] **T34 · P0 · Demo video** (60–120 s, `npm run build && npm run start`, Wi-Fi off on screen). ✅ Verify: it plays in a private/incognito window.
+- [x] **T34 · P0 · Demo video** (60–120 s, `npm run build && npm run start`, Wi-Fi off on screen). ✅ Verify: it plays in a private/incognito window.
 - [ ] **T35 · P0 · Push the final code**. ✅ Verify: GitHub shows the latest commit; no `.env`; LICENSE present.
 - [ ] **T36 · P0 · Write + publish the DEV post** (docs/SUBMISSION.md). ✅ Verify: it is published, has the 3 tags, and appears under `#hf26challenge`, **before Mon 5 Oct 12:29 PM IST**.
 
